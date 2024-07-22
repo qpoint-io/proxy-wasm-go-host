@@ -64,6 +64,12 @@ type Instance struct {
 
 type InstanceOptions func(instance *Instance)
 
+func InstanceWithConfig(config wazero.ModuleConfig) InstanceOptions {
+	return func(instance *Instance) {
+		instance.config = config
+	}
+}
+
 func NewInstance(vm *VM, module *Module, options ...InstanceOptions) *Instance {
 	// Here, we initialize an empty runtime as imports are defined prior to start.
 	ins := &Instance{
